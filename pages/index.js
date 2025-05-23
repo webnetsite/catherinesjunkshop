@@ -28,11 +28,11 @@ const IndexPage = () => {
             </div>
 
             <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-700 leading-tight">
-              Catherine's Junkshop System (CJSys)
+              Catherines Junkshop System (CJSys)
             </h1>
 
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-gray-800">
-              Catherine's Junkshop System (CJSys) is a web-based system designed to streamline the management of updates within an organization.
+              Catherines Junkshop System (CJSys) is a web-based system designed to streamline the management of updates within an organization.
             </p>
 
             {/*<div className="mt-6 flex flex-wrap gap-4 text-center sm:justify-start">
