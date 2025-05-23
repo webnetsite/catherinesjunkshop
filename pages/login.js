@@ -33,7 +33,7 @@ const Login = () => {
     return (
         <Layout>
             <Head>
-        <title>VMIS Login</title> {/* Set the title here */}
+        <title>CJSys Login</title> {/* Set the title here */}
       </Head>
       <div className='w-full max-w-md h-full m-auto bg-white rounded-lg border-1 border-primaryBorder shadow-default py-3 px-12 mt-10'>
                 
