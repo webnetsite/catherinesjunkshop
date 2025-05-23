@@ -53,7 +53,7 @@ Layout.defaultProps = {
     title: "CJSys",
     metaKeywords: "Catherines Junkshop Claver, Catherines Junkshop, Claver, Surigao del Norte",
     metaDesc: "Catherines Junkshop (CJSys) is a web-based system designed to streamline the management of vehicles within an organization.",
-    url: "https://vmis-production-6cc4.up.railway.app", // Your domain stays
+    url: "https://catherinesjunkshop-production.up.railway.app", // Your domain stays
     image: "/public/images/og.png", // <-- only relative path here ✅
   },
 };

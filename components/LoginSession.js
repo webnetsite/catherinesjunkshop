@@ -8,7 +8,7 @@ export default function LoginSession() {
     <div>
       {session ? (
         <div
-        onClick={() => signOut({ callbackUrl: "https://vmis-production-6cc4.up.railway.app" })}
+        onClick={() => signOut({ callbackUrl: "https://catherinesjunkshop-production.up.railway.app" })}
         className="cursor-pointer lg:inline-flex lg:w-auto px-3 py-2 rounded hover:bg-blue-800"
       >
         Logout
