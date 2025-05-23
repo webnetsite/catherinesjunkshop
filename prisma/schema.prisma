@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model trip_ticket {
+  ticket_id                                     String          @id @db.VarChar(50)
+  date_from                                     DateTime?       @db.Date
+  date_to                                       DateTime?       @db.Date
+  vehicle_id                                    Int
+  destination                                   String          @db.Text
+  purpose                                       String          @db.Text
+  driver_id                                     Int
+  alternatedriver_id                            Int
+  approving_officer                             String          @db.VarChar(30)
+  pos1                                          String          @db.VarChar(100)
+  pass1                                         String          @db.VarChar(30)
+  pass2                                         String          @db.VarChar(30)
+  pass3                                         String          @db.VarChar(30)
+  date_time_created                             DateTime?       @default(now()) @db.DateTime(0)
+  pass4                                         String?         @db.VarChar(255)
+  pass5                                         String?         @db.VarChar(255)
+  pass6                                         String?         @db.VarChar(255)
+  pass7                                         String?         @db.VarChar(255)
+  issuance_slip                                 issuance_slip[]
+  travel_order                                  travel_order[]
+  vehicle                                       vehicle         @relation(fields: [vehicle_id], references: [id], onUpdate: Restrict, map: "trip_ticket_ibfk_1")
+  driver                                        driver          @relation(fields: [driver_id], references: [id], onUpdate: Restrict, map: "trip_ticket_ibfk_2")
+  driver_trip_ticket_alternatedriver_idTodriver driver          @relation("trip_ticket_alternatedriver_idTodriver", fields: [alternatedriver_id], references: [id], onUpdate: Restrict, map: "trip_ticket_ibfk_3")
+
+  @@index([driver_id], map: "driver_id")
+  @@index([vehicle_id], map: "vehicle_id")
+  @@index([alternatedriver_id], map: "alternatedriver_id")
+}
+
+model user {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique(map: "User_username_key")
+  email     String   @unique(map: "User_email_key")
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model chief {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(40)
+  pos  String @db.VarChar(100)
+  ao   Int    @db.TinyInt
+  ro   Int    @db.TinyInt
+  ta   Int    @db.TinyInt
+  fp   Int    @db.TinyInt
+  fa   Int    @db.TinyInt
+}
+
+model driver {
+  id                                                 Int           @id @default(autoincrement())
+  name                                               String        @db.VarChar(40)
+  position                                           String?       @db.VarChar(100)
+  trip_ticket                                        trip_ticket[]
+  trip_ticket_trip_ticket_alternatedriver_idTodriver trip_ticket[] @relation("trip_ticket_alternatedriver_idTodriver")
+}
+
+model vehicle {
+  id           Int           @id @default(autoincrement())
+  plate_number String        @db.VarChar(20)
+  make         String        @db.VarChar(20)
+  type         String        @db.VarChar(20)
+  division_ass String        @db.VarChar(30)
+  trip_ticket  trip_ticket[]
+}
+
+model fund_source {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(40)
+}
+
+model issuance_slip {
+  id                String      @id @db.VarChar(30)
+  ticket_id         String      @db.VarChar(50)
+  date_req          DateTime    @db.Date
+  charging          String      @db.VarChar(30)
+  charge_to         String      @db.VarChar(30)
+  req_officer       String      @db.VarChar(30)
+  vehicle           String      @db.VarChar(30)
+  driver            String      @db.VarChar(30)
+  prepared          String      @db.VarChar(30)
+  approved          String      @db.VarChar(30)
+  consumableproduct String      @db.VarChar(50)
+  liters            Int
+  pos1              String      @db.VarChar(100)
+  pos2              String      @db.VarChar(100)
+  date_time_created DateTime?   @default(now()) @db.DateTime(0)
+  trip_ticket       trip_ticket @relation(fields: [ticket_id], references: [ticket_id], onUpdate: Restrict, map: "issuance_slip_ibfk_1")
+
+  @@index([ticket_id], map: "ticket_id")
+}
+
+model vendor {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(40)
+}
+
+model travel_order {
+  id                Int         @id @default(autoincrement())
+  tt_id             String      @db.VarChar(50)
+  date_from         DateTime    @db.Date
+  date_to           DateTime    @db.Date
+  recommending      String      @db.VarChar(200)
+  approval          String      @db.VarChar(200)
+  pos_recommending  String      @db.VarChar(200)
+  pos_approval      String      @db.VarChar(200)
+  date_time_created DateTime?   @default(now()) @db.DateTime(0)
+  trip_ticket       trip_ticket @relation(fields: [tt_id], references: [ticket_id], onUpdate: Restrict, map: "travel_order_ibfk_1")
+
+  @@index([tt_id], map: "tt_id")
+}
